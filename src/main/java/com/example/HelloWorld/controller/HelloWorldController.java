@@ -16,11 +16,11 @@ import java.util.Locale;
 public class HelloWorldController {
 
   @GetMapping("/hello")
-  public String helloWorld(@RequestParam(required = false) String shout) {
+  public String helloWorld(@RequestParam(required = false) boolean shout) {
 
     String message = "Hello, world!";
 
-    return shout != null ? message.toUpperCase(Locale.ROOT) : message;
+    return shout ? message.toUpperCase(Locale.ROOT) : message;
   }
 
   @GetMapping("/hello/")
