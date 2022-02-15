@@ -1,6 +1,8 @@
 package com.example.HelloWorld.controller;
 
 import com.example.HelloWorld.model.Person;
+import com.example.HelloWorld.service.HelloWorldService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +17,17 @@ import java.util.Locale;
 @RestController
 public class HelloWorldController {
 
+  private final HelloWorldService helloWorldService;
+
+  @Autowired
+  public HelloWorldController(HelloWorldService helloWorldService) {
+    this.helloWorldService = helloWorldService;
+  }
+
   @GetMapping("/hello")
   public String helloWorld(@RequestParam(required = false) boolean shout) {
 
-    String message = "Hello, world!";
-
-    return shout ? message.toUpperCase(Locale.ROOT) : message;
+    return helloWorldService.helloWorld(shout);
   }
 
   @GetMapping("/hello/")
@@ -28,25 +35,23 @@ public class HelloWorldController {
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 
-  @GetMapping("/hello/{name}")
+  @GetMapping("/hello/{planet}")
   public String helloPlanet(
-      @PathVariable String name, @RequestParam(required = false) String scream) {
+      @PathVariable String planet,
+      @RequestParam(required = false) String scream,
+      @RequestParam(required = false) String reverse) {
 
-    String x = name.substring(0, 1).toUpperCase() + name.substring(1);
-
-    String message = String.format("Hello, %s!", x);
-
-    return scream != null ? message.toUpperCase(Locale.ROOT) : message;
+    return helloWorldService.helloPlanet(planet, scream, reverse);
   }
 
-  @PostMapping("/hello/body")
-  public String postHello(
-      @RequestBody Person person, @RequestParam(required = false) String scream) {
-
-    String x = person.getName().substring(0, 1).toUpperCase() + person.getName().substring(1);
-
-    String message = String.format("Hello, %s!", x);
-
-    return scream != null ? message.toUpperCase(Locale.ROOT) : message;
-  }
+  //  @PostMapping("/hello/body")
+  //  public String postHello(
+  //      @RequestBody Person person, @RequestParam(required = false) String scream) {
+  //
+  //    String x = person.getName().substring(0, 1).toUpperCase() + person.getName().substring(1);
+  //
+  //    String message = String.format("Hello, %s!", x);
+  //
+  //    return scream != null ? message.toUpperCase(Locale.ROOT) : message;
+  //  }
 }
