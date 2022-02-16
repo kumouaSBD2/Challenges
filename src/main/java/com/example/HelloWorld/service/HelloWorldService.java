@@ -1,32 +1,42 @@
 package com.example.HelloWorld.service;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Locale;
+import java.util.Optional;
+import java.util.Stack;
 
 @Service
+@Slf4j
 public class HelloWorldService {
 
-  public String helloWorld(boolean shout) {
+  //  private final static Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
 
-    String message = "Hello, world!";
+  public String greetings(
+      Optional<String> subject,
+      boolean shout,
+      boolean reverse,
+      boolean latest,
+      Stack<String> stack) {
 
-    return shout ? message.toUpperCase(Locale.ROOT) : message;
-  }
+    String base = "Hello, %s!";
 
-  public String helloPlanet(String planet, String scream, String reverse) {
+    String message = String.format("Hello, %s!", subject.isPresent() ? subject.get() : "world");
 
-    String fixedPlanet = planet.substring(0, 1).toUpperCase() + planet.substring(1);
-
-    String message = String.format("Hello, %s!", fixedPlanet);
-
-    if (scream != null) {
-      return message.toUpperCase(Locale.ROOT);
+    if (subject.isPresent()) {
+      stack.push(subject.get());
     }
 
-    if (reverse != null) {
-      return new StringBuilder(message).reverse().toString();
-    }
+    if (latest && subject.isEmpty())
+      return stack.isEmpty() ? message : String.format(base, stack.pop());
+
+    if (shout) return message.toUpperCase(Locale.ROOT);
+
+    if (reverse) return new StringBuilder(message).reverse().toString();
 
     return message;
   }
