@@ -1,10 +1,6 @@
 package com.example.HelloWorld.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,8 +9,6 @@ import java.util.Stack;
 @Service
 @Slf4j
 public class HelloWorldService {
-
-  //  private final static Logger logger = LoggerFactory.getLogger(HelloWorldService.class);
 
   public String greetings(Optional<String> subject, boolean latest, Stack<String> stack) {
 
