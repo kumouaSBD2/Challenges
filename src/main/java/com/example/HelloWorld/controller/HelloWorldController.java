@@ -25,7 +25,7 @@ public class HelloWorldController {
 
   private final HelloWorldService helloWorldService;
   private String subject = "world";
-  public Stack<String> stack = new Stack<>();
+  private Stack<String> stack = new Stack<>();
 
   @Autowired
   public HelloWorldController(HelloWorldService helloWorldService) {

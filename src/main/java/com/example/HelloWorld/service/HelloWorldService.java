@@ -34,6 +34,8 @@ public class HelloWorldService {
     if (latest && subject.isEmpty())
       return stack.isEmpty() ? message : String.format(base, stack.pop());
 
+    if ((latest || !latest) && subject.isPresent()) return message;
+
     if (shout) return message.toUpperCase(Locale.ROOT);
 
     if (reverse) return new StringBuilder(message).reverse().toString();
