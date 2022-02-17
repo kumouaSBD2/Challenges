@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public class Person {
-    private String name;
+  private String name;
 
-    public Person(String name) {
-        this.setName(name);
-    }
+  public Person(String name) {
+    this.setName(name);
+  }
 }
