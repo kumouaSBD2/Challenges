@@ -27,12 +27,10 @@ public class HelloWorldService {
   }
 
   public String addPlanet(String subject, Stack<String> stack) {
-
     return stack.push(subject);
   }
 
   public String popPlanet(Stack<String> stack) {
-
     return !stack.isEmpty() ? stack.pop() : "Hello, world!";
   }
 }

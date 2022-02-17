@@ -34,12 +34,13 @@ public class HelloWorldController {
       @RequestParam(name = "reverse", required = false) boolean reverse,
       @RequestParam(name = "latest", required = false) boolean latest) {
 
+    if (shout && reverse)
+      return new StringBuilder(helloWorldService.greetings(subject, latest, stack)).reverse().toString().toUpperCase(Locale.ROOT);
+
     if (shout) return helloWorldService.greetings(subject, latest, stack).toUpperCase(Locale.ROOT);
 
     if (reverse)
-      return new StringBuilder(helloWorldService.greetings(subject, latest, stack))
-          .reverse()
-          .toString();
+      return new StringBuilder(helloWorldService.greetings(subject, latest, stack)).reverse().toString();
 
     return helloWorldService.greetings(subject, latest, stack);
   }
