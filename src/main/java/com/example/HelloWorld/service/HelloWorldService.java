@@ -14,7 +14,7 @@ public class HelloWorldService {
 
     String base = "Hello, %s!";
 
-    String message = String.format("Hello, %s!", subject.isPresent() ? subject.get() : "world");
+    String message = String.format(base, subject.isPresent() ? subject.get() : "world");
 
     if (subject.isPresent()) stack.push(subject.get());
 
