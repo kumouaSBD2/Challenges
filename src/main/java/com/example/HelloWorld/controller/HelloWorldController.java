@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -34,20 +35,15 @@ public class HelloWorldController {
       @RequestParam(name = "reverse", required = false) boolean reverse,
       @RequestParam(name = "latest", required = false) boolean latest) {
 
-    if (shout && reverse)
-      return new StringBuilder(helloWorldService.greetings(subject, latest, stack))
-          .reverse()
-          .toString()
-          .toUpperCase(Locale.ROOT);
+    String result = helloWorldService.greetings(subject, latest, stack);
 
-    if (shout) return helloWorldService.greetings(subject, latest, stack).toUpperCase(Locale.ROOT);
+    if (shout && reverse) return StringUtils.reverse(result).toUpperCase(Locale.ROOT);
 
-    if (reverse)
-      return new StringBuilder(helloWorldService.greetings(subject, latest, stack))
-          .reverse()
-          .toString();
+    if (shout) return result.toUpperCase(Locale.ROOT);
 
-    return helloWorldService.greetings(subject, latest, stack);
+    if (reverse) return StringUtils.reverse(result);
+
+    return result;
   }
 
   @PutMapping(path = "/{planet}")
