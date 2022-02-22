@@ -1,6 +1,6 @@
-package com.example.HelloWorld.controller;
+package org.cms.HelloWorld.controller;
 
-import com.example.HelloWorld.service.HelloWorldService;
+import org.cms.HelloWorld.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,6 +58,6 @@ public class HelloWorldController {
 
   @DeleteMapping
   public String deleteSubject(@RequestParam(name = "pop") String pop) {
-    return pop != null ? helloWorldService.popPlanet(stack) : "Hello";
+    return pop != null ? helloWorldService.popPlanet(stack) : "Hello, world";
   }
 }

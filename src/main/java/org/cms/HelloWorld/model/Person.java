@@ -1,4 +1,4 @@
-package com.example.HelloWorld.model;
+package org.cms.HelloWorld.model;
 
 import lombok.Data;
 
