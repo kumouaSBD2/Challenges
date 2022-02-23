@@ -1,4 +1,4 @@
-package org.cms.HelloWorld;
+package org.cms.helloworld;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

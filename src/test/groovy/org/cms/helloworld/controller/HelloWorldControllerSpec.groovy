@@ -1,6 +1,6 @@
-package org.cms.HelloWorld.controller
+package org.cms.helloworld.controller
 
-import org.cms.HelloWorld.HelloWorldApplication
+import org.cms.helloworld.HelloWorldApplication
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -12,7 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
 @AutoConfigureMockMvc
-@SpringBootTest(classes = HelloWorldApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = HelloWorldApplication, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class HelloWorldControllerSpec extends Specification {
 
     @Autowired
@@ -73,19 +73,22 @@ class HelloWorldControllerSpec extends Specification {
                 .andExpect(content().string("!DLROW ,OLLEH"))
     }
 
-    def "PUT planet to the stack"() {
-        expect:
-        mvc.perform(MockMvcRequestBuilders
-                .put("/hello/mars"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("mars"))
-    }
 
     def "DELETE planet from the stack"() {
+        given:
+        String planet = "mars"
+        String expectedResult = "Hello, $planet!"
+        mvc.perform(MockMvcRequestBuilders
+                .get("/hello/$planet"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(expectedResult))
+
         expect:
+
         mvc.perform(MockMvcRequestBuilders
                 .delete("/hello?pop=true"))
                 .andExpect(status().isOk())
+                .andExpect(content().string(planet))
     }
 
 }
