@@ -1,15 +1,15 @@
 package org.cms.helloworld.service;
 
 import java.util.List;
-import java.util.Optional;
 
+import lombok.extern.slf4j.Slf4j;
 import org.cms.helloworld.model.Planet;
 import org.cms.helloworld.repository.HelloWorldRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-// @Slf4j
+@Slf4j
 public class HelloWorldService {
 
   private final HelloWorldRepository helloWorldRepository;
@@ -21,6 +21,10 @@ public class HelloWorldService {
 
   public List<Planet> getPlanets() {
     return helloWorldRepository.findAll();
+  }
+
+  public Planet getPlanetById(Long id) {
+    return helloWorldRepository.getById(id);
   }
 
   public Planet addPlanet(Planet planet) {
@@ -36,22 +40,4 @@ public class HelloWorldService {
     planet.setPlanetName(planetName);
     return helloWorldRepository.save(planet);
   }
-
-  //  private static final Deque<String> stack = new LinkedList<>();
-  //  private static final String BASE = "Hello, %s!";
-
-  //  public String greetings(Optional<String> subject, boolean latest) {
-  //    String message = String.format(BASE, subject.orElse("world"));
-  //
-  //    subject.ifPresent(stack::push);
-  //
-  //    if (latest && subject.isEmpty())
-  //      return stack.isEmpty() ? message : String.format(BASE, stack.peek());
-  //
-  //    return message;
-  //  }
-
-  //  public String popPlanet() {
-  //    return !stack.isEmpty() ? stack.pop() : "Hello, world!";
-  //  }
 }

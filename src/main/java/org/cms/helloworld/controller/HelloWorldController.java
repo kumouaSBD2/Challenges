@@ -16,7 +16,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/hello")
@@ -43,9 +42,11 @@ public class HelloWorldController {
 
     String base = "Hello, %s!";
     List<Planet> result = helloWorldService.getPlanets();
+    Planet planet = helloWorldService.getPlanetById(id);
+
     String message =
-        result.contains(result.get(Math.toIntExact(id)))
-            ? String.format(base, result.get(Math.toIntExact(id)).getPlanetName())
+        result.contains(planet)
+            ? String.format(base, planet.getPlanetName())
             : String.format(base, "world");
 
     if (shout) message = message.toUpperCase(Locale.ROOT);
