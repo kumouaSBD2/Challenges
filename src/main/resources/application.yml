@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: "Ku's Challenges"
+
+  datasource:
+    url: jdbc:sqlserver://localhost;databaseName=Spring Boot Challenges Database
+    username: sa
+    password: p@^!asdW1ord
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      dialect: org.hibernate.dialect.SQLServer2012Dialect
+      ddl-auto: update
+      show_sql: true
+
