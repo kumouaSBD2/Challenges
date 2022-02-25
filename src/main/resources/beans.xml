@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+    <bean id="planet" class="org.cms.helloworld.model.Planet">
+
+    </bean>
+
+    <bean id="helloWorldController" class="org.cms.helloworld.controller.HelloWorldController" autowire="constructor">
+    </bean>
+
+    <bean id="helloWorldService" class="org.cms.helloworld.service.HelloWorldService" autowire="byType">
+    </bean>
+
+<!--    <bean id="helloWorldRepository" class="org.cms.helloworld.repository.HelloWorldRepository">-->
+
+<!--    </bean>-->
+
+    <!-- more bean definitions go here -->
+
+</beans>

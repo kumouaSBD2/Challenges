@@ -21,9 +21,27 @@ import java.util.Locale;
 @RequestMapping(path = "/hello")
 public class HelloWorldController {
 
+  /*
+ <bean
+  id="helloWorldControllerId"
+  class="org.cms.helloworld.service.HelloWorldController" >
+  <property name="helloWorldService" ref="helloWorldServiceId"/>
+
+<bean
+  id="helloWorldServiceId"
+  class="org.cms.helloworld.service.HelloWorldService" >
+  <property name="helloWorldRepository" ref="helloWorldRepositoryId"/>
+
+<bean
+  id="helloWorldRepositoryId"
+  class="org.cms.helloworld.repository.HelloWorldRepository" >
+    <property name="I'm not going to define all the dependencies" (Austin is telling me to) />
+</bean>
+ */
+
   private final HelloWorldService helloWorldService;
 
-  @Autowired
+//  @Autowired
   public HelloWorldController(HelloWorldService helloWorldService) {
     this.helloWorldService = helloWorldService;
   }

@@ -1,20 +1,17 @@
 package org.cms.helloworld.service;
 
-import java.util.List;
-
 import lombok.extern.slf4j.Slf4j;
 import org.cms.helloworld.model.Planet;
 import org.cms.helloworld.repository.HelloWorldRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-@Service
+import java.util.List;
+
+
 @Slf4j
 public class HelloWorldService {
 
-  private final HelloWorldRepository helloWorldRepository;
+  private  HelloWorldRepository helloWorldRepository;
 
-  @Autowired
   public HelloWorldService(HelloWorldRepository helloWorldRepository) {
     this.helloWorldRepository = helloWorldRepository;
   }
