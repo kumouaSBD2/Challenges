@@ -29,7 +29,7 @@ public class HelloWorldService {
   }
 
   public Planet save(Planet planet) {
-    return helloWorldRepository.save(planet);
+    return helloWorldRepository.saveAndFlush(planet);
   }
 
   public void deleteById(Long id) {
