@@ -1,8 +1,12 @@
 package org.cms.helloworld.controller;
 
+import java.util.List;
+import java.util.Locale;
+import org.apache.commons.lang3.StringUtils;
 import org.cms.helloworld.model.Planet;
 import org.cms.helloworld.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,44 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.apache.commons.lang3.StringUtils;
-
-import java.util.List;
-import java.util.Locale;
 
 @RestController
+@Controller
 @RequestMapping(path = "/hello")
 public class HelloWorldController {
 
-  /*
- <bean
-  id="helloWorldControllerId"
-  class="org.cms.helloworld.service.HelloWorldController" >
-  <property name="helloWorldService" ref="helloWorldServiceId"/>
-
-<bean
-  id="helloWorldServiceId"
-  class="org.cms.helloworld.service.HelloWorldService" >
-  <property name="helloWorldRepository" ref="helloWorldRepositoryId"/>
-
-<bean
-  id="helloWorldRepositoryId"
-  class="org.cms.helloworld.repository.HelloWorldRepository" >
-    <property name="I'm not going to define all the dependencies" (Austin is telling me to) />
-</bean>
- */
-
   private final HelloWorldService helloWorldService;
 
-//  @Autowired
+  @Autowired
   public HelloWorldController(HelloWorldService helloWorldService) {
     this.helloWorldService = helloWorldService;
   }
 
   @GetMapping(path = {"/", ""})
   public List<Planet> getAllPlanets() {
-    List<Planet> result = helloWorldService.getPlanets();
-    return result;
+    return helloWorldService.findAll();
   }
 
   @GetMapping(path = "/{id}")
@@ -59,8 +41,8 @@ public class HelloWorldController {
       @PathVariable(name = "id") Long id) {
 
     String base = "Hello, %s!";
-    List<Planet> result = helloWorldService.getPlanets();
-    Planet planet = helloWorldService.getPlanetById(id);
+    List<Planet> result = helloWorldService.findAll();
+    Planet planet = helloWorldService.getById(id);
 
     String message =
         result.contains(planet)
@@ -74,18 +56,18 @@ public class HelloWorldController {
     return message;
   }
 
-  @PutMapping(value = "/updatePlanet/{id}")
+  @PutMapping(value = "/{id}")
   public Planet updatePlanet(@PathVariable(value = "id") Long id, @RequestBody String planetName) {
-    return helloWorldService.updatePlanet(id, planetName);
+    return helloWorldService.upsert(id, planetName);
   }
 
-  @PostMapping(value = "/addPlanet")
-  public Planet addPlanet(@RequestBody Planet planet) {
-    return helloWorldService.addPlanet(planet);
+  @PostMapping(value = "/{planetName}")
+  public Planet addPlanet(@PathVariable(name = "planetName") String planetName) {
+    return helloWorldService.save(Planet.builder().planetName(planetName).build());
   }
 
   @DeleteMapping(value = "/{id}")
   public void deletePlanet(@PathVariable(value = "id") Long id) {
-    helloWorldService.deletePlanet(id);
+    helloWorldService.deleteById(id);
   }
 }

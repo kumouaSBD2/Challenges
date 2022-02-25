@@ -1,40 +1,42 @@
 package org.cms.helloworld.service;
 
+import java.util.List;
+import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.cms.helloworld.model.Planet;
 import org.cms.helloworld.repository.HelloWorldRepository;
-
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 
 @Slf4j
+@Service
 public class HelloWorldService {
 
-  private  HelloWorldRepository helloWorldRepository;
+  private final HelloWorldRepository helloWorldRepository;
 
+  @Autowired
   public HelloWorldService(HelloWorldRepository helloWorldRepository) {
     this.helloWorldRepository = helloWorldRepository;
   }
 
-  public List<Planet> getPlanets() {
+  public List<Planet> findAll() {
     return helloWorldRepository.findAll();
   }
 
-  public Planet getPlanetById(Long id) {
+  public Planet getById(Long id) {
     return helloWorldRepository.getById(id);
   }
 
-  public Planet addPlanet(Planet planet) {
+  public Planet save(Planet planet) {
     return helloWorldRepository.save(planet);
   }
 
-  public void deletePlanet(Long id) {
+  public void deleteById(Long id) {
     helloWorldRepository.deleteById(id);
   }
 
-  public Planet updatePlanet(Long id, String planetName) {
-    Planet planet = helloWorldRepository.getById(id);
-    planet.setPlanetName(planetName);
-    return helloWorldRepository.save(planet);
+  public Planet upsert(Long id, String planetName) {
+    return helloWorldRepository.save(Planet.builder().id(id).planetName(planetName).build());
   }
 }
